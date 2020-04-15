@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from "../../redux/user/user.actions";
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import './header.styles.scss';
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { toggleDropDownVisibility } from '../../redux/cart/cart.actions';
 
 class Header extends React.Component {
     signOut = () => {
@@ -27,14 +30,17 @@ class Header extends React.Component {
                     {
                         this.props.user ? <div className='option' onClick={this.signOut}>SIGN OUT</div> : <Link className='option' to='signin'>SIGN IN</Link>
                     }
+                    <CartIcon />
                 </div>
+                {this.props.isDropdownVisible ? (<CartDropdown />) : null}
             </div>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    user: state.user.user
+    user: state.user.user,
+    isDropdownVisible: state.cart.dropDownVisible
 });
 const mapDispatchToProps = dispatch => ({
     updateCurrentUser: user => dispatch(setCurrentUser(user))
