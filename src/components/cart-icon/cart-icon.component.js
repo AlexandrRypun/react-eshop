@@ -4,16 +4,17 @@ import { connect } from 'react-redux';
 import {toggleDropDownVisibility} from '../../redux/cart/cart.actions';
 import { ReactComponent as ShoppingIcon} from '../../assets/cart-icon.svg';
 import './cart-icon.styles.scss';
+import { selectCartItemsQty } from '../../redux/cart/cart.selectors';
 
-const CartIcon = ({ items, toggleVisible }) => (
+const CartIcon = ({ itemsQty, toggleVisible }) => (
     <div className='cart-icon' onClick={toggleVisible}>
         <ShoppingIcon className='shopping-icon'/>
-        <span className='item-count'>{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
+        <span className='item-count'>{itemsQty}</span>
     </div>
 );
 
 const mapStateToProps = state => ({
-    items: state.cart.items
+    itemsQty: selectCartItemsQty(state)
 });
 const mapDispatchToProps = dispatch => ({
     toggleVisible: () => dispatch(toggleDropDownVisibility())
