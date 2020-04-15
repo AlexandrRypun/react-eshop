@@ -11,6 +11,7 @@ import Header from "./components/header/header.component";
 import LoginRegistration from "./pages/login-registration/login-registration.component";
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import CheckoutPage from './pages/checkout/checkout.component';
 
 class App extends React.Component {
     componentDidMount() {
@@ -31,7 +32,8 @@ class App extends React.Component {
                 <Header />
                 <Switch>
                     <Route exact={true} path='/' component={HomePage} />
-                    <Route exact path='/shop' component={ShopPage} />
+                    <Route path='/shop' component={ShopPage} />
+                    <Route exact path='/checkout' component={CheckoutPage} />
                     <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to='/' />) : (<LoginRegistration />)} />
                 </Switch>
             </div>
