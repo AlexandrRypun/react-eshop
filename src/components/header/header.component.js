@@ -6,7 +6,6 @@ import { ReactComponent as Logo } from '../../assets/crown.svg';
 import './header.styles.scss';
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import { toggleDropDownVisibility } from '../../redux/cart/cart.actions';
 
 class Header extends React.Component {
     signOut = () => {
