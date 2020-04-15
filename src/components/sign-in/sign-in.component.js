@@ -1,9 +1,11 @@
 import React from "react";
 import jwtDecode from 'jwt-decode';
+import { connect } from 'react-redux';
 import axios from '../../services/axios';
 import './sign-in.styles.scss';
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
+import { setCurrentUser } from "../../redux/user/user.actions";
 
 class SignIn extends React.Component {
     constructor() {
@@ -62,4 +64,7 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+    updateCurrentUser: user => dispatch(setCurrentUser(user))
+});
+export default connect(null, mapDispatchToProps)(SignIn);

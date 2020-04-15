@@ -5,6 +5,7 @@ export async function refreshTokens(redirectToLogin = true) {
     const oldRefreshToken = localStorage.getItem('refreshToken');
     if (oldRefreshToken) {
         localStorage.removeItem('refreshToken');
+        localStorage.removeItem('accessToken');
         try {
             const response = await axios.put(`${process.env.REACT_APP_API_DOMAIN}/auth/refreshTokens`, {}, {
                 headers: { RefreshToken: oldRefreshToken }
@@ -17,7 +18,6 @@ export async function refreshTokens(redirectToLogin = true) {
         } catch (e) {
             redirect = true;
         }
-
     } else {
         redirect = true;
     }

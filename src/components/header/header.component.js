@@ -1,12 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-import { ReactComponent as Logo } from '../../assets/crown.svg'
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setCurrentUser } from "../../redux/user/user.actions";
+import { ReactComponent as Logo } from '../../assets/crown.svg';
 import './header.styles.scss';
 
 class Header extends React.Component {
     signOut = () => {
         this.props.updateCurrentUser(null);
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
     };
     render() {
         return (
@@ -30,4 +33,11 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+const mapStateToProps = state => ({
+    user: state.user.user
+});
+const mapDispatchToProps = dispatch => ({
+    updateCurrentUser: user => dispatch(setCurrentUser(user))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
