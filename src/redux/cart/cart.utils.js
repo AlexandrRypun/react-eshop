@@ -8,3 +8,15 @@ export const addItemToCart = (items, newItem) => {
     }
     return [...items];
 }
+
+export const removeItemFromCart = (items, itemId) => {
+    const index = items.findIndex(item => item.id === itemId);
+    if (index === -1) {
+        return items;
+    }
+    if (items[index].quantity === 1) {
+        return items.filter(item => item.id !== itemId);
+    }
+    items[index].quantity -= 1;
+    return [...items];
+}
