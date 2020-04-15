@@ -1,13 +1,16 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import jwtDecode from "jwt-decode";
+
 import './App.css';
 import { HomePage } from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import Header from "./components/header/header.component";
 import LoginRegistration from "./pages/login-registration/login-registration.component";
 import { setCurrentUser } from './redux/user/user.actions';
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 class App extends React.Component {
     componentDidMount() {
@@ -36,8 +39,8 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    currentUser: state.user.user
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser
 });
 const mapDispatchToProps = dispatch => ({
     setCurrentUser: user => dispatch(setCurrentUser(user))

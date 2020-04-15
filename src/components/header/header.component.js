@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import './header.styles.scss';
 import { setCurrentUser } from "../../redux/user/user.actions";
 import { ReactComponent as Logo } from '../../assets/crown.svg';
-import './header.styles.scss';
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCartDropDownVisible } from '../../redux/cart/cart.selectors';
 
 class Header extends React.Component {
     signOut = () => {
@@ -37,9 +41,9 @@ class Header extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    user: state.user.user,
-    isDropdownVisible: state.cart.dropDownVisible
+const mapStateToProps = createStructuredSelector({
+    user: selectCurrentUser,
+    isDropdownVisible: selectCartDropDownVisible
 });
 const mapDispatchToProps = dispatch => ({
     updateCurrentUser: user => dispatch(setCurrentUser(user))

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import {toggleDropDownVisibility} from '../../redux/cart/cart.actions';
 import { ReactComponent as ShoppingIcon} from '../../assets/cart-icon.svg';
@@ -13,8 +14,8 @@ const CartIcon = ({ itemsQty, toggleVisible }) => (
     </div>
 );
 
-const mapStateToProps = state => ({
-    itemsQty: selectCartItemsQty(state)
+const mapStateToProps = createStructuredSelector({
+    itemsQty: selectCartItemsQty
 });
 const mapDispatchToProps = dispatch => ({
     toggleVisible: () => dispatch(toggleDropDownVisibility())
