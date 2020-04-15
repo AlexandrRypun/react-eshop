@@ -1,7 +1,8 @@
 export const addItemToCart = (items, newItem) => {
     const index = items.findIndex(item => item.id === newItem.id);
     if (index > -1) {
-        items[index].quantity += 1;
+        const updatedItem = { ...items[index], quantity: items[index].quantity += 1 };
+        items.splice(index, 1, updatedItem);
     } else {
         newItem.quantity = 1;
         items.push(newItem);
@@ -17,6 +18,7 @@ export const removeItemFromCart = (items, itemId) => {
     if (items[index].quantity === 1) {
         return items.filter(item => item.id !== itemId);
     }
-    items[index].quantity -= 1;
+    const updatedItem = { ...items[index], quantity: items[index].quantity -= 1 };
+    items.splice(index, 1, updatedItem);
     return [...items];
 }
