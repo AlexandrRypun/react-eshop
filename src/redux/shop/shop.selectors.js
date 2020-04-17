@@ -9,5 +9,5 @@ export const selectShopCollections = createSelector(
 
 export const selectShopCollection = collectionId => createSelector(
     [selectShop],
-    shop => shop.collections.find(c => c.id === collectionId)
+    shop => shop.collections ? shop.collections.find(c => c.id === collectionId) : null
 );
