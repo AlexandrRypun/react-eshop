@@ -1,4 +1,4 @@
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import { shopActionTypes } from './shop.types';
 import { fetchCollectionsSuccess, fetchCollectionsFailure } from './shop.actions';
 
@@ -15,5 +15,5 @@ export function* fetchCollectionsAsync() {
 }
 
 export function* fetchCollectionsStart() {
-    yield takeEvery(shopActionTypes.fetchCollectionsStart, fetchCollectionsAsync);
+    yield takeLatest(shopActionTypes.fetchCollectionsStart, fetchCollectionsAsync);
 }
