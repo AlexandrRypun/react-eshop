@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import './header.styles.scss';
-import { setCurrentUser } from "../../redux/user/user.actions";
+import { signOut } from "../../redux/user/user.actions";
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
@@ -12,11 +12,6 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartDropDownVisible } from '../../redux/cart/cart.selectors';
 
 class Header extends React.Component {
-    signOut = () => {
-        this.props.updateCurrentUser(null);
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-    };
     render() {
         return (
             <div className='header'>
@@ -31,7 +26,7 @@ class Header extends React.Component {
                         CONTACT
                     </Link>
                     {
-                        this.props.user ? <div className='option' onClick={this.signOut}>SIGN OUT</div> : <Link className='option' to='signin'>SIGN IN</Link>
+                        this.props.user ? <div className='option' onClick={this.props.signOut}>SIGN OUT</div> : <Link className='option' to='signin'>SIGN IN</Link>
                     }
                     <CartIcon />
                 </div>
@@ -46,7 +41,7 @@ const mapStateToProps = createStructuredSelector({
     isDropdownVisible: selectCartDropDownVisible
 });
 const mapDispatchToProps = dispatch => ({
-    updateCurrentUser: user => dispatch(setCurrentUser(user))
+    signOut: () => dispatch(signOut())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

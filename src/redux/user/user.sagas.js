@@ -3,7 +3,7 @@ import jwtDecode from 'jwt-decode';
 
 import axios from '../../services/axios';
 import { userActionTypes } from './user.types';
-import { signInFailure, signInSuccess } from './user.actions';
+import { signInFailure, signInSuccess, setCurrentUser } from './user.actions';
 
 export function* signIn(action) {
     try {
@@ -19,10 +19,20 @@ export function* signIn(action) {
     }
 }
 
+export function* signOut() {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    yield put(setCurrentUser(null));
+}
+
 export function* onSignInStart() {
-    yield takeLatest(userActionTypes.signInStart, signIn)
+    yield takeLatest(userActionTypes.signInStart, signIn);
+}
+
+export function* onSignOut() {
+    yield takeLatest(userActionTypes.signOut, signOut);
 }
 
 export default function* userSagas() {
-    yield all([call(onSignInStart)]);
+    yield all([call(onSignInStart), call(onSignOut)]);
 }

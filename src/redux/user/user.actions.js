@@ -19,3 +19,7 @@ export const signInFailure = error => ({
     type: userActionTypes.signInFailure,
     payload: error
 });
+
+export const signOut = () => ({
+    type: userActionTypes.signOut
+});

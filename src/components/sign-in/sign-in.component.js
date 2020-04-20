@@ -12,7 +12,7 @@ class SignIn extends React.Component {
         password: ''
     };
 
-    handleSubmit = async e => {
+    handleSubmit = e => {
         e.preventDefault();
         this.props.signInStart(this.state);
     };
